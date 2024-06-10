@@ -1,0 +1,13 @@
+use hospitalDatabase
+db.patientDetails.insertMany([
+  { name: "Alice", patientID: "1154", age: 21, condition: "Cough" },
+  { name: "Charvi", patientID: "1155", age: 20, condition: "Cold" }
+])
+db.patientDetails.find()
+db.patientDetails.find({ name: "Charvi" })
+db.patientDetails.updateOne({ name: "Alice" }, { $set: { condition: "Fever" } })
+db.patientDetails.find({ name: "Alice" })
+db.patientDetails.deleteOne({ name: "Charvi" })
+show collections
+db.patientDetails.drop()
+exit

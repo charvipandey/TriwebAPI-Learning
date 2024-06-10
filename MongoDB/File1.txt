@@ -1,0 +1,16 @@
+use myEmployeeDatabase
+db.employeeCollection.insertMany([
+  { name: "Charvi", employeeID: "11324" },
+  { name: "Ananya", location: "India", employeeID: "11325" }
+])
+
+db.employeeCollection.find()
+
+db.employeeCollection.find({ name: "Charvi" })
+
+db.employeeCollection.updateOne({ name: "Charvi" }, { $set: { location: "India" } })
+db.employeeCollection.find({ name: "Charvi" })
+db.employeeCollection.deleteOne({ name: "Ananya" })
+show collections
+db.employeeCollection.drop()
+exit
