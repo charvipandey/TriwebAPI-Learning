@@ -9,7 +9,7 @@ A repository for practicing and learning various concepts of programming and web
 This repository is organized into several folders, each focusing on a specific area of learning. Click on the links below to explore each folder and learn more about the projects and exercises within:
 
 * [Programming](Programming/readme.md): General programming exercises
-* [HTML/Form](HTML/Form/readme.md): HTML and form-related exercises and projects
+* [HTML](HTML/readme.md): HTML and form-related exercises and projects
 * [CSS](CSS/readme.md): CSS projects
 * [JavaScript](JavaScript/readme.md): JavaScript exercises
 * [ES2020](ES2020/readme.md): ES2020 JavaScript exercises
