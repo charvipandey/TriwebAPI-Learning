@@ -5,7 +5,7 @@ const redistURL = 'redis://127.0.0.1:6379';
 const client = redis.createClient(redistURL);
 
 client.set("name", "redis");
-console.log("Data is set now");
+console.log("data is set now");
 
 client.get("name", (error, value) => {
     if (error) {
