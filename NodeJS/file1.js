@@ -6,10 +6,7 @@ const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
 
-let users = [
-  { id: 1, name: 'John Doe', email: 'john.doe@example.com' },
-  { id: 2, name: 'Jane Smith', email: 'jane.smith@example.com' }
-];
+let users = [];
 
 app.get('/users', (req, res) => {
   res.json(users);
@@ -27,7 +24,7 @@ app.get('/users/:id', (req, res) => {
 app.post('/users', (req, res) => {
   const { name, email } = req.body;
   if (!name || !email) {
-    return res.status(400).send('Name and email are required');
+    return res.status(400).send('Both name and email are required');
   }
   const newUser = {
     id: users.length + 1,
@@ -61,6 +58,16 @@ app.delete('/users/:id', (req, res) => {
   }
   users.splice(userIndex, 1);
   res.status(204).send();
+});
+
+app.post('/addCharvi', (req, res) => {
+  const newUser = {
+    id: users.length + 1,
+    name: 'Charvi Pandey',
+    email: 'charvipandey@gmail.com'
+  };
+  users.push(newUser);
+  res.status(201).json(newUser);
 });
 
 app.listen(port, () => {
