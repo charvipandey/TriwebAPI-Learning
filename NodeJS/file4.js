@@ -1,33 +1,46 @@
-class animal {
-  speak() {
-      console.log("the animal makes a sound");
-  }
-}
+class account {
+  #bal;
 
-class dog extends animal {
-  speak() {
-      console.log("the dog barks");
+  constructor(initBal) {
+      this.#bal = initBal;
   }
-}
 
-class cat extends animal {
-  speak() {
-      console.log("the cat meows");
+  deposit(amt) {
+      if (amt > 0) {
+          this.#bal += amt;
+          console.log(`deposited: ${amt}`);
+      } else {
+          console.log('deposit amount must be positive');
+      }
   }
-}
 
-function makeSpeak(anml) {
-  anml.speak();
+  withdraw(amt) {
+      if (amt > 0 && amt <= this.#bal) {
+          this.#bal -= amt;
+          console.log(`withdrew: ${amt}`);
+      } else {
+          console.log('invalid withdraw amount');
+      }
+  }
+
+  getbal() {
+      console.log(`current balance: ${this.#bal}`);
+      return this.#bal;
+  }
 }
 
 function main() {
-  const anml = new animal();
-  const dg = new dog();
-  const ct = new cat();
+  const acc = new account(100);
+  acc.getbal();
 
-  makeSpeak(anml);
-  makeSpeak(dg);
-  makeSpeak(ct);
+  acc.deposit(50);
+  acc.getbal();
+
+  acc.withdraw(30);
+  acc.getbal();
+
+  acc.withdraw(150);
+  acc.getbal();
 }
 
 main();
