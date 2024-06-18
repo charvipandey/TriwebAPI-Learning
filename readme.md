@@ -16,5 +16,6 @@ This repository is organized into several folders, each focusing on a specific a
 * [ES6](ES6/readme.md): ES6 JavaScript exercises
 * [MongoDB](MongoDB/readme.md): MongoDB exercises
 * [SQL](SQL/readme.md): SQL exercises
+* [NodeJS](NodeJS/readme.md): NodeJS exercises
 
 ### Each folder has its own readme file with more detailed information about the contents and projects within.
