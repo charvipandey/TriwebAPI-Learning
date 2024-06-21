@@ -30,3 +30,34 @@ function printusr({ name, age, email, address: { city } }) {
 }
 
 printusr(usr);
+
+function syncgreet() {
+  console.log('sync hello, world!');
+}
+syncgreet();
+
+function asyncgreet() {
+  setTimeout(() => {
+      console.log('async hello, world!');
+  }, 1000);
+}
+asyncgreet();
+
+function asyncprgreet() {
+  return new Promise((resolve) => {
+      setTimeout(() => {
+          resolve('async promise hello, world!');
+      }, 1000);
+  });
+}
+
+asyncprgreet().then((msg) => {
+  console.log(msg);
+});
+
+async function asyncawaitgreet() {
+  const msg = await asyncprgreet();
+  console.log(msg);
+}
+
+asyncawaitgreet();
