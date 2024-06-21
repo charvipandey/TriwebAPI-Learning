@@ -7,6 +7,14 @@ const usr = {
   }
 };
 
+const usrstr = JSON.stringify(usr);
+
+console.log('obj as str:', usrstr);
+
+const usrobj = JSON.parse(usrstr);
+
+console.log('str back to obj:', usrobj);
+
 const { name, age, email, address: { city } } = usr;
 
 console.log(`name: ${name}`);

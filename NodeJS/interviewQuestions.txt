@@ -20,9 +20,14 @@ end request-response cycle, call next middleware,
 used for tasks like logging, authentication, parsing request bodies
 
 -obj destructuting
+=a syntax in javaScript:
+allows unpacking values from objects into distinct variables,
+simplifies code and makes it more readable
 
 -sync vs async
+=sync operations block the execution thread until completed,
+async operations allow other tasks to run while waiting, enhancing performance and responsiveness
 
 -obj to str
-
--
+=convert object to string using JSON.stringify():
+serializes object to json string, useful for storing or transmitting data
