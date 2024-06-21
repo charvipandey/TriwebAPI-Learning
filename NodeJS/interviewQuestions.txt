@@ -1,0 +1,28 @@
+-purpose of package.json
+=package.json is the configuration file for the project:
+includes metadata (project name, version, dependencies, scripts, configurations)
+helps manage dependencies and scripts efficiently
+
+-working of event loop
+=event loop in node js is single-threaded:
+handles asynchronous operations, checks event queue, processes callbacks,
+executes non-blocking io operations, schedules callbacks once operations complete
+
+-error handling
+=using try-catch for synchronous code,
+error-first callbacks or promises (.catch()) for asynchronous code,
+async/await with try-catch for handling errors in async functions
+
+-middleware in express.js
+=a function in express js:
+executes during request lifecycle, can modify request/response objects,
+end request-response cycle, call next middleware,
+used for tasks like logging, authentication, parsing request bodies
+
+-obj destructuting
+
+-sync vs async
+
+-obj to str
+
+-
