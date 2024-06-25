@@ -17,5 +17,7 @@ This repository is organized into several folders, each focusing on a specific a
 * [MongoDB](MongoDB/readme.md): MongoDB exercises
 * [SQL](SQL/readme.md): SQL exercises
 * [NodeJS](NodeJS/readme.md): NodeJS exercises
+* [TypeScript](TypeScript/readme.md): TypeScript exercises
+* [React](React/readme.md): React projects
 
 ### Each folder has its own readme file with more detailed information about the contents and projects within.
