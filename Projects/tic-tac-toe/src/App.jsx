@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-
-// import statements components (game board, game over, player)
-
+import GameBoard from './components/GameBoard.jsx';
+import GameOver from './components/GameOver.jsx';
 
 const PLAYERS = {
   X: 'Player 1',
@@ -14,24 +13,61 @@ const INITIAL_GAME_BOARD = [
   [null, null, null],
 ];
 
+function deriveActivePlayer(gameTurns) {
+  let currentPlayer = 'X';
+
+  if (gameTurns.length > 0 && gameTurns[0].player === 'X') {
+    currentPlayer = 'O';
+  }
+
+  return currentPlayer;
+}
+
+function deriveGameBoard(gameTurns){
+  let gameBoard = [...INITIAL_GAME_BOARD.map(array => [...array])];
+
+  for (const turn of gameTurns) {
+    const { square, player } = turn;
+    const { row, col } = square;
+
+    gameBoard[row][col] = player;
+  }
+
+  return gameBoard;
+}
+
 function App() {
-  const [players, setPlayers] = useState(PLAYERS);
-  const [gameBoard, setGameBoard] = useState(INITIAL_GAME_BOARD);
+  const [gameTurns, setGameTurns] = useState([]);
+  const activePlayer = deriveActivePlayer(gameTurns);
+  const gameBoard = deriveGameBoard(gameTurns);
+  let hasDraw = gameTurns.length === 9;
+
+  function handleSelectSquare(rowIndex, colIndex) {
+    setGameTurns((prevTurns) => {
+      let currentPlayer = deriveActivePlayer(prevTurns);
+
+      const updatedTurns = [
+        { square: { row: rowIndex, col: colIndex }, player: currentPlayer },
+        ...prevTurns,
+      ];
+      return updatedTurns;
+    });
+  }
+
+  function handleRestart(){
+    setGameTurns([]);
+  }
 
   return (
     <div className="App">
       <header className="App-header">
         <h1>Tic Tac Toe</h1>
       </header>
-      <div className="game-board">
-        {gameBoard.map((row, rowIndex) => (
-          <div key={rowIndex}>
-            {row.map((cell, colIndex) => (
-              <div key={colIndex}>{cell}</div>
-            ))}
-          </div>
-        ))}
-      </div>
+      {hasDraw && <GameOver winner={null} onRestart={handleRestart}/>}
+      <GameBoard
+        onSelectSquare={handleSelectSquare}
+        board={gameBoard} />
+      <Log turns={gameTurns} />
     </div>
   );
 }
