@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { CredentialsContext } from "../App";
 import { handleErrors } from "./Login";
 
@@ -8,8 +8,6 @@ export default function Register() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [, setCredentials] = useContext(CredentialsContext);
-
-  const navigate = useNavigate();
 
   const register = (e) => {
     e.preventDefault();
@@ -29,12 +27,14 @@ export default function Register() {
           username,
           password,
         });
-        navigate("/");
+        history.push("/");
       })
       .catch((error) => {
         setError(error.message);
       });
   };
+
+  const history = useHistory();
 
   return (
     <div>

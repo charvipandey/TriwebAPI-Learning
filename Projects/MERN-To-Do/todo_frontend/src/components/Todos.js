@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useCallback } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { CredentialsContext } from "../App";
 import { v4 as uuidv4 } from "uuid";
 
@@ -20,21 +20,16 @@ export default function Todos() {
   };
 
   useEffect(() => {
-    const fetchTodos = () => {
-      fetch(`http://localhost:4000/todos`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Basic ${credentials.username}:${credentials.password}`,
-        },
-      })
-        .then((response) => response.json())
-        .then((todos) => setTodos(todos))
-        .catch((error) => console.error("Error fetching todos:", error));
-    };
-
-    fetchTodos();
-  }, [credentials.username, credentials.password]);
+    fetch(`http://localhost:4000/todos`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Basic ${credentials.username}:${credentials.password}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((todos) => setTodos(todos));
+  }, []);
 
   const addTodo = (e) => {
     e.preventDefault();
@@ -54,11 +49,11 @@ export default function Todos() {
     persist(newTodoList);
   };
 
-  const getTodos = useCallback(() => {
+  const getTodos = () => {
     return todos.filter((todo) =>
       filter === "completed" ? todo.checked : !todo.checked
     );
-  }, [todos, filter]);
+  };
 
   const changeFilter = (newFilter) => {
     setFilter(newFilter);
