@@ -1,28 +1,28 @@
-const jwt=require('jsonwebtoken');
-const User=require('../models/User');
+const jwt = require('jsonwebtoken');
+const User = require('../models/User');
 
-const authMiddleware=async(req, res, next)=>{
-  try{
-    const authHeader=req.headers.authorization;
-    const token=authHeader && authHeader.split(' ')[1];
-    if(!token){
-      return res.status(401).json({ msg: 'access denied, no token provided' });
+const authMiddleware = async (req, res, next) => {
+  try {
+    const authHeader = req.headers.authorization;
+    const token = authHeader && authHeader.split(' ')[1];
+    if (!token) {
+      return res.status(401).json({ msg: 'Access denied, no token provided' });
     }
-    jwt.verify(token, process.env.JWT_SECRET, async(err, decodedToken) =>{
-      if(err){
-        return res.status(403).json({ msg: 'invalid token.' });
+    jwt.verify(token, process.env.JWT_SECRET, async (err, decodedToken) => {
+      if (err) {
+        return res.status(403).json({ msg: 'Invalid token' });
       }
-      const user=await User.findById(decodedToken.userId);
-      if(!user){
-        return res.status(404).json({ msg: 'user not found.' });
+      const user = await User.findById(decodedToken.userId);
+      if (!user) {
+        return res.status(404).json({ msg: 'User not found' });
       }
-      req.user=user;
+      req.user = user;
       next();
     });
-  } catch(err){
-    console.error('authentication error:', err);
-    res.status(500).json({ msg: 'server error.' });
+  } catch (err) {
+    console.error('Authentication error:', err);
+    res.status(500).json({ msg: 'Server error' });
   }
 };
 
-module.exports=authMiddleware;
+module.exports = authMiddleware;
