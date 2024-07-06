@@ -2,6 +2,11 @@ const express=require('express');
 const mongoose=require('mongoose');
 const dbConnect = require('./config/db');
 const userRoutes=require('./routes/userRoutes');
+require('dotenv').config();
+
+const jwt = require('jsonwebtoken');
+
+const token = jwt.sign({ userId: '123' }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
 dbConnect();
 
