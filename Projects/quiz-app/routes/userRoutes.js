@@ -1,27 +1,27 @@
 const express=require('express');
 const router=eexpress.Router();
+const User = require('../models/User');
+const { hashPassword } = require('../utils');
 
-router.get('/', (req, res)=>{
-  res.status(200).json({message: 'users'});
+router.post('/register', async (req, res) => {
+  const { name, email, password } = req.body;
+
+  try {
+    let user = await User.findOne({ email });
+    if (user) {
+      return res.status(400).json({ msg: 'User already exists' });
+    }
+
+    const hashedPassword = await hashPassword(password);
+
+    user = new User({ name, email, password: hashedPassword });
+
+    await user.save();
+
+    res.status(201).json({ msg: 'User registered successfully' });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
 });
-
-router.post('/', (req,res)=>{
-  res.status(201).json({message: 'user created'});
-});
-
-router.get('/:id', (req, res) => {
-  const userId = req.params.id;
-  res.status(200).json({ message: `user details for ID ${userId}` });
-});
-
-router.put('/:id', (req, res) => {
-  const userId = req.params.id;
-  res.status(200).json({ message: `user updated for ID ${userId}` });
-});
-
-router.delete('/:id', (req, res) => {
-  const userId = req.params.id;
-  res.status(200).json({ message: `user deleted for ID ${userId}` });
-});
-
 module.exports=router;
