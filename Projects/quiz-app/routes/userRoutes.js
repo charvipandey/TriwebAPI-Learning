@@ -1,5 +1,3 @@
-// routes/userRoutes.js
-
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
@@ -13,7 +11,7 @@ const generateToken = (userId) => {
 };
 
 router.post('/register', async (req, res) => {
-  const { name, email, password } = req.body;
+  const { username, email, password } = req.body;
 
   try {
     let user = await User.findOne({ email });
@@ -23,7 +21,7 @@ router.post('/register', async (req, res) => {
 
     const hashedPassword = await hashPassword(password);
 
-    user = new User({ name, email, password: hashedPassword });
+    user = new User({ username, email, password: hashedPassword });
 
     await user.save();
 
@@ -61,10 +59,10 @@ router.get('/profile', authMiddleware, (req, res) => {
 });
 
 router.put('/profile', authMiddleware, async (req, res) => {
-  const { name, email, password } = req.body;
+  const { username, email, password } = req.body;
   const updates = {};
 
-  if (name) updates.name = name;
+  if (username) updates.username = username;
   if (email) updates.email = email;
   if (password) updates.password = await hashPassword(password);
 
@@ -77,10 +75,22 @@ router.put('/profile', authMiddleware, async (req, res) => {
   }
 });
 
-router.delete('/profile', authMiddleware, async (req, res) => {
+router.put('/activate', authMiddleware, async (req, res) => {
   try {
-    await User.findByIdAndDelete(req.user._id);
-    res.status(200).json({ msg: 'User deleted successfully' });
+    req.user.isActive = true;
+    await req.user.save();
+    res.status(200).json({ msg: 'User account activated successfully' });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+});
+
+router.put('/deactivate', authMiddleware, async (req, res) => {
+  try {
+    req.user.isActive = false;
+    await req.user.save();
+    res.status(200).json({ msg: 'User account deactivated successfully' });
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server error');
